@@ -1,0 +1,32 @@
+version: 2.1
+orbs:
+  <orb-name>: <namespace>/<orb-name>@dev:<<pipeline.git.revision>>
+  orb-tools: circleci/orb-tools@11.0
+
+workflows:
+  test-deploy:
+    jobs:
+      - orb-tools-alpha/lint:
+          filters:
+            tags:
+              only: /.*/
+      - orb-tools-alpha/pack:
+          filters:
+            tags:
+              only: /.*/
+      - orb-tools-alpha/review:
+          filters:
+            tags:
+              only: /.*/
+      - orb-tools-alpha/publish-release:
+          orb-name: <namespace>/<orb-name>
+          requires:
+            - orb-tools-alpha/lint
+            - orb-tools-alpha/review
+            - orb-tools-alpha/pack
+          context: <publishing-context>
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
