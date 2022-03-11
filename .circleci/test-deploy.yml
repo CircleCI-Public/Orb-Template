@@ -1,32 +1,48 @@
 version: 2.1
 orbs:
   <orb-name>: <namespace>/<orb-name>@dev:<<pipeline.git.revision>>
-  orb-tools: circleci/orb-tools@11.0
-
+  orb-tools: circleci/orb-tools@11.1
+jobs:
+    # Create a job to test the commands of your orbs.
+    # You may want to add additional validation steps to ensure the commands are working as expected.
+    command-tests:
+      docker:
+        - image: cimg/base:current
+      steps:
+        - checkout
+        # Run your orb's commands to validate them.
+        - <orb-name>/greet
 workflows:
   test-deploy:
     jobs:
-      - orb-tools-alpha/lint:
+      - command-tests:
           filters:
             tags:
               only: /.*/
-      - orb-tools-alpha/pack:
+      - orb-tools/lint:
           filters:
             tags:
               only: /.*/
-      - orb-tools-alpha/review:
+      - orb-tools/pack:
           filters:
             tags:
               only: /.*/
-      - orb-tools-alpha/publish-release:
+      - orb-tools/review:
+          filters:
+            tags:
+              only: /.*/
+      - orb-tools/publish:
           orb-name: <namespace>/<orb-name>
+          vcs-type: << pipeline.project.type >>
+          pub-type: production
           requires:
-            - orb-tools-alpha/lint
-            - orb-tools-alpha/review
-            - orb-tools-alpha/pack
+            - orb-tools/lint
+            - orb-tools/review
+            - orb-tools/pack
+            - command-tests
           context: <publishing-context>
           filters:
-            tags:
-              only: /^v.*/
             branches:
               ignore: /.*/
+            tags:
+              only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
