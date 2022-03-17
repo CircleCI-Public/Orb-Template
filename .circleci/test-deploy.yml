@@ -19,15 +19,7 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - orb-tools/lint:
-          filters:
-            tags:
-              only: /.*/
       - orb-tools/pack:
-          filters:
-            tags:
-              only: /.*/
-      - orb-tools/review:
           filters:
             tags:
               only: /.*/
@@ -36,8 +28,6 @@ workflows:
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:
-            - orb-tools/lint
-            - orb-tools/review
             - orb-tools/pack
             - command-tests
           context: <publishing-context>
