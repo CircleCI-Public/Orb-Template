@@ -2,6 +2,11 @@ version: 2.1
 orbs:
   <orb-name>: <namespace>/<orb-name>@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@11.1
+
+filters: &filters
+  tags:
+    only: /.*/
+
 jobs:
     # Create a job to test the commands of your orbs.
     # You may want to add additional validation steps to ensure the commands are working as expected.
@@ -15,29 +20,16 @@ jobs:
 workflows:
   test-deploy:
     jobs:
+      # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       - command-tests:
-          filters:
-            tags:
-              only: /.*/
-      - orb-tools/lint:
-          filters:
-            tags:
-              only: /.*/
+          filters: *filters
       - orb-tools/pack:
-          filters:
-            tags:
-              only: /.*/
-      - orb-tools/review:
-          filters:
-            tags:
-              only: /.*/
+          filters: *filters
       - orb-tools/publish:
           orb-name: <namespace>/<orb-name>
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:
-            - orb-tools/lint
-            - orb-tools/review
             - orb-tools/pack
             - command-tests
           context: <publishing-context>
