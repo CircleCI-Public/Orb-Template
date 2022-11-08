@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
   <orb-name>: <namespace>/<orb-name>@dev:<<pipeline.git.revision>>
-  orb-tools: circleci/orb-tools@11.3
+  orb-tools: circleci/orb-tools@11.4
 
 filters: &filters
   tags:
