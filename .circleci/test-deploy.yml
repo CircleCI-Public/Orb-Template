@@ -1,7 +1,8 @@
 version: 2.1
 orbs:
-  <orb-name>: <namespace>/<orb-name>@dev:<<pipeline.git.revision>>
-  orb-tools: circleci/orb-tools@11.5
+  # Your orb will be automatically injected here during the pipeline.
+  # Reference your orb's jobs and commands below as they will exist when built.
+  orb-tools: circleci/orb-tools@12.0
 
 filters: &filters
   tags:
@@ -26,9 +27,9 @@ workflows:
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
-          orb-name: <namespace>/<orb-name>
-          vcs-type: << pipeline.project.type >>
-          pub-type: production
+          orb_name: <namespace>/<orb-name>
+          vcs_type: << pipeline.project.type >>
+          pub_type: production
           requires:
             - orb-tools/pack
             - command-tests
@@ -38,5 +39,3 @@ workflows:
               ignore: /.*/
             tags:
               only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
-
-# VS Code Extension Version: 1.4.0

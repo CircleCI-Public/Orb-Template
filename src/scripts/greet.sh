@@ -1,2 +1,2 @@
 #!/bin/bash
-echo Hello "${PARAM_TO}"
+echo "Hello $(circleci env subst "${PARAM_TO}")"
