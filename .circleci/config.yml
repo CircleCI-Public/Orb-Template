@@ -11,10 +11,14 @@ filters: &filters
 workflows:
   lint-pack:
     jobs:
-      - orb-tools/lint
-      - orb-tools/pack
-      - orb-tools/review
-      - shellcheck/check
+      - orb-tools/lint:
+          filters: *filters
+      - orb-tools/pack:
+          filters: *filters
+      - orb-tools/review:
+          filters: *filters
+      - shellcheck/check:
+          filters: *filters
       - orb-tools/publish:
           orb-name: <namespace>/<orb-name>
           vcs-type: << pipeline.project.type >>
@@ -22,9 +26,11 @@ workflows:
             [orb-tools/lint, orb-tools/review, orb-tools/pack, shellcheck/check]
           # Use a context to hold your publishing token.
           context: <publishing-context>
+          filters: *filters
       # Triggers the next workflow in the Orb Development Kit.
       - orb-tools/continue:
           pipeline_number: << pipeline.number >>
           vcs_type: << pipeline.project.type >>
           orb_name: <orb-name>
           requires: [orb-tools/publish]
+          filters: *filters
