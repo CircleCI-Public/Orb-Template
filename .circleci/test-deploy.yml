@@ -6,7 +6,7 @@ orbs:
   # The orb definition is intentionally not included here. It will be injected into the pipeline.
   <orb-name>: {}
 
-# Use this tag to ensure test jobs always run, 
+# Use this tag to ensure test jobs always run,
 # even though the downstream publish job will only run on release tags.
 filters: &filters
   tags:
@@ -14,6 +14,8 @@ filters: &filters
 
 # Filter for release tags.
 release-filters: &release-filters
+  branches:
+    ignore: /.*/
   tags:
     only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
 
