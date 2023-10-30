@@ -4,9 +4,6 @@ description: >
 
 executor: default
 
-orbs:
-  manifest: manifest-cyber/manifest@1.0.0
-
 parameters:
   source:
     type: string
