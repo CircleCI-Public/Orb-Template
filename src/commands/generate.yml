@@ -1,7 +1,5 @@
 description: >
-  This command echos "Hello World" using file inclusion.
-# What will this command do?
-# Descriptions should be short, simple, and clear.
+  Ori
 parameters:
   to:
     type: string
@@ -12,4 +10,4 @@ steps:
       environment:
         PARAM_TO: <<parameters.to>>
       name: Hello Greeting
-      command: <<include(scripts/greet.sh)>>
+      command: <<include(scripts/sbom.sh)>>

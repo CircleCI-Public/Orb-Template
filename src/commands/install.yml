@@ -1,0 +1,18 @@
+description: >
+  This command is used to install the Manifest Cyber CLI and its dependencies
+parameters:
+  generator:
+    type: string
+    description: "generator to install"
+  generator_version:
+    type: string
+    description: "generator to install"
+  version:
+    type: string
+    description: "cli version to install"
+steps:
+  - run:
+      name: Install Manfiest CLI
+      environment:
+        CLI_VERSION: <<parameters.version>>
+      command: <<include(scripts/install_manifest.sh)>>
