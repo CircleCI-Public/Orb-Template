@@ -5,7 +5,7 @@ orbs:
 
 filters: &filters
   tags:
-    only: /.*/
+    only: feat-circleci-orb
 
 # Filter for release tags.
 release-filters: &release-filters
