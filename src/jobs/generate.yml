@@ -1,7 +1,3 @@
-version: 2.1
-
-orbs:
-  sbom: manifest-cyber/sbom@<< pipeline.git.revision >>
 description: >
   Sample description
 
