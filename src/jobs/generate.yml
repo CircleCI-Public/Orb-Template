@@ -1,6 +1,9 @@
+version: 2.1
+
+orbs:
+  sbom: manifest-cyber/sbom@<< pipeline.git.revision >>
 description: >
   Sample description
-# What will this job do?
 
 executor: default
 
@@ -13,3 +16,4 @@ steps:
   - checkout
   - sbom/install:
       version: "latest"
+      
