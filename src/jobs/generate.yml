@@ -13,7 +13,7 @@ parameters:
     default: "."
     description: "source directory to generate sbom for"
 steps:
-      - checkout
-      - sbom/install:
-          version: "latest"
+  - checkout
+  - sbom/install:
+      version: "latest"
       
