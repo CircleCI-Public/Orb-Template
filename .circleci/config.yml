@@ -2,7 +2,7 @@ version: 2.1
 setup: true
 orbs:
   orb-tools: circleci/orb-tools@12.0
-  shellcheck: circleci/shellcheck@3.1
+  shellcheck: circleci/shellcheck@3.2.0
 
 filters: &filters
   tags:
@@ -24,5 +24,6 @@ workflows:
           pipeline_number: << pipeline.number >>
           vcs_type: github
           orb_name: manifest-cyber/sbom
-          requires: [orb-tools/lint, orb-tools/pack, orb-tools/review, shellcheck/check]
+          requires:
+            [orb-tools/lint, orb-tools/pack, orb-tools/review, shellcheck/check]
           filters: *filters

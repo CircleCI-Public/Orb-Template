@@ -15,8 +15,6 @@ release-filters: &release-filters
     only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
 
 jobs:
-  # Create jobs to test the commands of your orbs.
-  # You may want to add additional validation steps to ensure the commands are working as expected.
   command-test:
     docker:
       - image: cimg/base:current
@@ -33,10 +31,10 @@ workflows:
           filters: *release-filters
       - orb-tools/publish:
           orb_name: manifest-cyber/sbom
-          vcs_type: << pipeline.project.type >>
+          vcs_type: <<pipeline.project.type>>
           pub_type: production
           requires:
             - orb-tools/pack
             - command-test
-          context: <publishing-context> # orb-publishing
+          context: orb-publishing # <publishing-context> # orb-publishing
           filters: *release-filters
