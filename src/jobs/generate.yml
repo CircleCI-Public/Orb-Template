@@ -16,4 +16,3 @@ steps:
   - checkout
   - sbom/install:
       version: "latest"
-      
