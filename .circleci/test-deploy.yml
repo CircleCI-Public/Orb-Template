@@ -40,6 +40,3 @@ workflows:
             - command-test
           context: <publishing-context> # orb-publishing
           filters: *release-filters
-
-
-    only: /.*/
