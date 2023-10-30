@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  sbom: manifest-cyber/sbom@dev:<< pipeline.git.revision >>
+  sbom: manifest-cyber/sbom@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@12.0
 
 filters: &filters
@@ -23,7 +23,7 @@ jobs:
     steps:
       - checkout
       - sbom/install:
-          version: << pipeline.git.revision >>
+          version: <<pipeline.git.revision>>
 workflows:
   test-deploy:
     jobs:
