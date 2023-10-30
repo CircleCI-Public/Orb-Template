@@ -1,10 +1,11 @@
 version: 2.1
+setup: true
 orbs:
   sbom: manifest-cyber/sbom:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@12.0
 
 filters: &filters
-  branches:
+  tags:
     only: /.*/
 
 release-filters: &release-filters
