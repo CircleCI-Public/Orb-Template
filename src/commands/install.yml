@@ -4,7 +4,7 @@ parameters:
   generator:
     type: string
     description: "generator to install"
-  generator-version:
+  generator_version:
     type: string
     description: "generator to install"
   version:
@@ -13,5 +13,4 @@ parameters:
 steps:
   - run:
       name: Install Manfiest CLI
-      command: |
-        curl -sSL https://raw.githubusercontent.com/manifest-cyber/manifest-cli/master/install.sh | sh -s -- -b /usr/local/bin << parameters.version >>
+      command: curl -sSL https://raw.githubusercontent.com/manifest-cyber/manifest-cli/master/install.sh | sh -s -- -b /usr/local/bin << parameters.version >>
