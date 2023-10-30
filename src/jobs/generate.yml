@@ -1,0 +1,19 @@
+description: >
+  Sample description
+# What will this job do?
+
+executor: default
+
+orbs:
+  manifest: manifest-cyber/manifest@1.0.0
+
+parameters:
+  source:
+    type: string
+    default: "."
+    description: "source directory to generate sbom for"
+steps:
+      - checkout
+      - sbom/install:
+          version: "latest"
+      
