@@ -24,7 +24,7 @@ jobs:
           generator_version: v0.92.0
       - sbom/generate:
           generator: syft
-          sources: .
+          source: .
 
 workflows:
   test-deploy:
