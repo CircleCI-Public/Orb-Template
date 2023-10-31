@@ -10,9 +10,4 @@ ptargs=$(circleci env subst "${MANIFEST_ARGS}")
 
 sources=${sources//,/}
 
-if [[ -n "${ptargs}" ]]; then
-    ptargs="-- ${ptargs}"
-fi
-
-echo "ptargs: ${ptargs}"
-manifest sbom --label="${labels}" --generator="${generator}" --name="${name}" --version="${version}" --output="${format}" "${sources}" "${ptargs}"
+manifest sbom --label="${labels}" --generator="${generator}" --name="${name}" --version="${version}" --output="${format}" "${sources}" -- "${ptargs}"
