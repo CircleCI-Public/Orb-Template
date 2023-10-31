@@ -15,6 +15,5 @@ tptargs=$(echo "${ptargs}" | awk '{$1=$1};1')
 if [[ -z "${tptargs}" ]]; then
     manifest sbom --label="${labels}" --generator="${generator}" --name="${name}" --version="${version}" --output="${format}" "${sources}"
 else
-    echo "using ptargs: ${ptargs}"
     manifest sbom --label="${labels}" --generator="${generator}" --name="${name}" --version="${version}" --output="${format}" "${sources}" -- "${ptargs}"
 fi
