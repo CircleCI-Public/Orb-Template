@@ -9,4 +9,4 @@ sources=$(circleci env subst "${MANIFEST_SOURCES}")
 args=$(circleci env subst "${MANIFEST_ARGS}")
 
 sources=${sources//,/ }
-manifest sbom --label=${labels} --generator=${generator} --name=${name} --version=${version} --output=${format} ${sources} -- ${args}
+manifest sbom --label="${labels}" --generator="${generator}" --name="${name}" --version="${version}" --output="${format}" "${sources}" -- "${args}"

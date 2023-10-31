@@ -12,11 +12,11 @@ parameters:
     type: string
     description: "set the output format of the SBOM"
     default: "cyclonedx-json"
-  source-name:
+  source_name:
     type: string
     description: "set the name of the target source"
     default: ""
-  source-version:
+  source_version:
     type: string
     description: "set the version of the target source"
     default: ""
@@ -34,8 +34,8 @@ steps:
         MANIFEST_SOURCE: <<parameters.source>>
         MANIFEST_OUTPUT: <<parameters.output>>
         MANIFEST_FORMAT: <<parameters.format>>
-        MANIFEST_SOURCE_NAME: <<parameters.source-name>>
-        MANIFEST_SOURCE_VERSION: <<parameters.source-version>>
+        MANIFEST_SOURCE_NAME: <<parameters.source_name>>
+        MANIFEST_SOURCE_VERSION: <<parameters.source_version>>
         MANIFEST_GENERATOR: <<parameters.generator>>
         MANIFEST_ARGS: <<parameters.args>>
       name: Generate SBOM
