@@ -22,7 +22,7 @@ workflows:
       # Triggers the next workflow in the Orb Development Kit.
       - orb-tools/continue:
           pipeline_number: << pipeline.number >>
-          vcs_type: << pipeline.project.type >>
+          vcs_type: gh # << pipeline.project.type >>
           orb_name: sbom
           requires:
             [orb-tools/lint, orb-tools/pack, orb-tools/review, shellcheck/check]
