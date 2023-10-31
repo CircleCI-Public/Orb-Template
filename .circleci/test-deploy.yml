@@ -21,8 +21,8 @@ jobs:
     steps:
       - checkout
       # Run your orb's commands to validate them.
-      - sbom/generate
-      - sbom/install
+      - manifest-cyber/sbom/generate
+      - manifest-cyber/sbom/install
 workflows:
   test-deploy:
     jobs:
@@ -36,7 +36,7 @@ workflows:
           filters: *release-filters
       - orb-tools/publish:
           orb_name: manifest-cyber/sbom
-          vcs_type: << pipeline.project.type >>
+          vcs_type: gh # << pipeline.project.type >>
           pub_type: production
           # Ensure this job requires all test jobs and the pack job.
           requires:
