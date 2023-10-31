@@ -21,7 +21,7 @@ jobs:
       - sbom/install:
           version: v0.10.0
           generator: syft
-          generator_version: v0.94.0
+          generator_version: v0.92.0
       - sbom/generate:
           generator: syft
           source: .
