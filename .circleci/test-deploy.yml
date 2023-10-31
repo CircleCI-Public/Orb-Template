@@ -21,8 +21,8 @@ jobs:
     steps:
       - checkout
       # Run your orb's commands to validate them.
-      - manifest-cyber/sbom/generate
-      - manifest-cyber/sbom/install
+      - sbom/generate
+      - sbom/install
 workflows:
   test-deploy:
     jobs:
