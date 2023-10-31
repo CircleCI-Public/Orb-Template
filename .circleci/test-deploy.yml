@@ -19,7 +19,7 @@ jobs:
     steps:
       - checkout
       - sbom/install:
-          version: 0.10.0
+          version: v0.10.0
           generator: syft
           generator_version: v0.94.0
       - sbom/generate:
