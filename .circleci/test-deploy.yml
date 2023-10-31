@@ -26,6 +26,7 @@ jobs:
           generator: syft
           source: .
           publish: true
+          source_name: circleci_orb_test_deploy
 
 workflows:
   test-deploy:
