@@ -12,7 +12,7 @@ sources=${sources//,/}
 
 targs=$(echo "${args}" | awk '{$1=$1};1')
 if [[ -n ${targs} ]]; then
-    args="-- ${args}"
+    targs="-- ${targs}"
 fi
 
-manifest sbom --label="${labels}" --generator="${generator}" --name="${name}" --version="${version}" --output="${format}" "${sources}" "${args}"
+manifest sbom --label="${labels}" --generator="${generator}" --name="${name}" --version="${version}" --output="${format}" "${sources}" "${targs}"
