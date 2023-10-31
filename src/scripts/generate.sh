@@ -9,7 +9,7 @@ sources=$(circleci env subst "${MANIFEST_SOURCE}")
 args=$(circleci env subst "${MANIFEST_ARGS}")
 
 sources=${sources//,/}
-# if args is not empty, append it to the command with a -- separator
+
 if [[ -n "${args}" ]]; then
     args="-- ${args}"
 fi
