@@ -6,7 +6,7 @@ name=$(circleci env subst "${MANIFEST_SOURCE_NAME}")
 version=$(circleci env subst "${MANIFEST_SOURCE_VERSION}")
 format=$(circleci env subst "${MANIFEST_FORMAT}")
 sources=$(circleci env subst "${MANIFEST_SOURCE}")
-args=$(circleci env subst "${MANIFEST_ARGS}")
+# args=$(circleci env subst "${MANIFEST_ARGS}")
 
 sources=${sources//,/}
 
