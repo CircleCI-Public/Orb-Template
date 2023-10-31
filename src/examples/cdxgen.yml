@@ -1,0 +1,27 @@
+description: >
+  An example of how to use the Manifest Cyber Orb to generate an SBOM
+usage:
+  version: 2.1
+  orbs:
+    sbom: manifest-cyber/sbom@0.1.0
+
+  jobs:
+    build:
+      docker:
+        - image: cimg/node:lts
+      steps:
+        - checkout
+        - run: npm ci
+        - run: npm run build:bom
+        - sbom/install:
+            version: v0.10.0
+            generator: cdxgen
+            generator_version: v0.92.0
+        - sbom/generate:
+            generator: cdxgen
+            source: .
+            output: bom.json
+            format: cyclonedx-json
+            source_name: node
+            source_version: 14.17.0
+            args: --spec-version 1.4
