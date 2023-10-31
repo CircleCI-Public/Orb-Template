@@ -10,7 +10,9 @@ ptargs=$(circleci env subst "${MANIFEST_ARGS}")
 
 sources=${sources//,/}
 
-if [[ -n "${ptargs}" ]]; then
+tptargs=$(echo "${ptargs}" | awk '{$1=$1};1')
+
+if [[ -z "${tptargs}" ]]; then
     manifest sbom --label="${labels}" --generator="${generator}" --name="${name}" --version="${version}" --output="${format}" "${sources}"
 else
     echo "using ptargs: ${ptargs}"
