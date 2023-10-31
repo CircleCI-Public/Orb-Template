@@ -25,8 +25,8 @@ jobs:
       - sbom/generate:
           generator: syft
           source: .
-          publish: true
-          source_name: circleci_orb_test_deploy
+          source_name: circleci_test
+          source_version: 1.0.0
 
 workflows:
   test-deploy:
