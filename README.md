@@ -1,39 +1,56 @@
-# Orb Template
+# Manifest Cyber Orb
 
 <!---
-[![CircleCI Build Status](https://circleci.com/gh/<organization>/<project-name>.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/<organization>/<project-name>) [![CircleCI Orb Version](https://badges.circleci.com/orbs/<namespace>/<orb-name>.svg)](https://circleci.com/developer/orbs/orb/<namespace>/<orb-name>) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/<organization>/<project-name>/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
+[![CircleCI Build Status](https://circleci.com/gh/<organization>/<project-name>.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/<organization>/<project-name>) [![CircleCI Orb Version](https://badges.circleci.com/orbs/<namespace>/<orb-name>.svg)](https://circleci.com/orbs/registry/orb/<namespace>/<orb-name>) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/<organization>/<project-name>/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
 
 --->
 
-A project template for Orbs.
-
-This repository is designed to be automatically ingested and modified by the CircleCI CLI's `orb init` command.
-
-_**Edit this area to include a custom title and description.**_
+This orb is used to send an SBOM to your Manifest Cyber account.
 
 ---
 
+## How to use this orb
+
+This orb is meant to be used in conjunction with an SBOM generation tool such as CycloneDX. The orb will take the SBOM and send it to your Manifest Cyber account. Various generators are available for different languages and ecosystems. For more information on how to generate an SBOM, visit the [CycloneDX Github Org](https://github.com/CycloneDX/).
+
+1. Add the orb to your project.
+2. Generate an API Key in your Manifest Cyber account. This is done from the "Organizations" page, which you can reach by clicking on your account.
+3. Save that API key in CircleCI as an environment variable. The name of the environment variable is `MANIFEST_API_KEY`.
+
+In the app build job, use your either use your SBOM generator to build an SBOM and save it to a file.
+
+5. Call `sbom-transmitter/install-syft` to install `syft` SBOM generator in your CI.
+6. Call `sbom-transmitter/run-syft` to generate SBOM for your build.
+7. In the app build job, call the `sbom-transmitter/transmit` command. Pass the path to the SBOM as the `sbom-file-path` parameter.
+
 ## Resources
 
-[CircleCI Orb Registry Page](https://circleci.com/developer/orbs/orb/<namespace>/<orb-name>) - The official registry page of this orb for all versions, executors, commands, and jobs described.
+[CircleCI Orb Registry Page](https://circleci.com/orbs/registry/orb/manifest/sbom-transmitter) - The official registry page of this orb for all versions, executors, commands, and jobs described.
 
-[CircleCI Orb Docs](https://circleci.com/docs/orb-intro/#section=configuration) - Docs for using, creating, and publishing CircleCI Orbs.
+[CircleCI Orb Docs](https://circleci.com/docs/2.0/orb-intro/#section=configuration) - Docs for using, creating, and publishing CircleCI Orbs.
 
-### How to Contribute
+## Usage Example
 
-We welcome [issues](https://github.com/<organization>/<project-name>/issues) to and [pull requests](https://github.com/<organization>/<project-name>/pulls) against this repository!
+```yaml
+usage:
+  version: 2.1
+  orbs:
+    manifest: manifest/sbom-transmitter@x.y.z
 
-### How to Publish An Update
-1. Merge pull requests with desired changes to the main branch.
-    - For the best experience, squash-and-merge and use [Conventional Commit Messages](https://conventionalcommits.org/).
-2. Find the current version of the orb.
-    - You can run `circleci orb info <namespace>/<orb-name> | grep "Latest"` to see the current version.
-3. Create a [new Release](https://github.com/<organization>/<project-name>/releases/new) on GitHub.
-    - Click "Choose a tag" and _create_ a new [semantically versioned](http://semver.org/) tag. (ex: v1.0.0)
-      - We will have an opportunity to change this before we publish if needed after the next step.
-4.  Click _"+ Auto-generate release notes"_.
-    - This will create a summary of all of the merged pull requests since the previous release.
-    - If you have used _[Conventional Commit Messages](https://conventionalcommits.org/)_ it will be easy to determine what types of changes were made, allowing you to ensure the correct version tag is being published.
-5. Now ensure the version tag selected is semantically accurate based on the changes included.
-6. Click _"Publish Release"_.
-    - This will push a new tag and trigger your publishing pipeline on CircleCI.
+  jobs:
+    build:
+      docker:
+        - image: cimg/node:lts
+      steps:
+        - checkout
+        - run: npm ci
+        - run: sbom-transmitter/install-syft
+        - sbom-transmitter/run-syft:
+            source: "./"
+            file: "./sbom.json" # optional
+            sbom-name: "demo-sbom" # optional
+            sbom-version: "v1.0.0" # optional
+            sbom-output: "cyclonedx-json" # optional
+        - sbom-transmitter/transmit:
+            sbom-file-path: "./sbom.json"
+```
