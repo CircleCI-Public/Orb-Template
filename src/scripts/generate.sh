@@ -11,7 +11,7 @@ args=$(circleci env subst "${MANIFEST_ARGS}")
 sources=${sources//,/}
 
 targs=$(echo "${args}" | awk '{$1=$1};1')
-if [[ ! -z ${targs} ]]; then
+if [[ -n ${targs} ]]; then
     args="-- ${args}"
 fi
 
