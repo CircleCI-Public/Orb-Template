@@ -17,5 +17,7 @@ steps:
   - run:
       name: Install Manfiest CLI
       environment:
-        CLI_VERSION: <<parameters.version>>
-      command: <<include(scripts/install_manifest.sh)>>
+        MANIFEST_CLI_VERSION: <<parameters.version>>
+        MANIFEST_GENERATOR: <<parameters.generator>>
+        MANIFEST_GENERATOR_VERSION: <<parameters.generator_version>>
+      command: <<include(scripts/install.sh)>>

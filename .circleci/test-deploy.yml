@@ -18,8 +18,14 @@ jobs:
       - image: cimg/base:current
     steps:
       - checkout
-      - sbom/generate
-      - sbom/install
+      - sbom/install:
+          version: 0.10.0
+          generator: syft
+          generator_version: v0.94.0
+      - sbom/generate:
+          generator: syft
+          source: .
+
 workflows:
   test-deploy:
     jobs:

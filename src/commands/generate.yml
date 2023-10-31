@@ -1,13 +1,42 @@
 description: >
-  Ori
+  Generates an SBOM on any number of targets (paths to source code, containers, etc.)
 parameters:
-  to:
+  source:
     type: string
-    default: "World"
-    description: "Hello to whom?"
+    description: "comma separated list of targets to generate SBOM for"
+  output:
+    type: string
+    description: "file path to write SBOM to"
+    default: "sbom.json"
+  format:
+    type: string
+    description: "set the output format of the SBOM"
+    default: "cyclonedx-json"
+  source-name:
+    type: string
+    description: "set the name of the target source"
+    default: ""
+  source-version:
+    type: string
+    description: "set the version of the target source"
+    default: ""
+  generator:
+    type: string
+    description: "set the generator to use"
+    default: ""
+  args:
+    type: string
+    description: "set the arguments to pass to the generator"
+    default: ""
 steps:
   - run:
       environment:
-        PARAM_TO: <<parameters.to>>
-      name: Hello Greeting
-      command: <<include(scripts/sbom.sh)>>
+        MANIFEST_SOURCE: <<parameters.source>>
+        MANIFEST_OUTPUT: <<parameters.output>>
+        MANIFEST_FORMAT: <<parameters.format>>
+        MANIFEST_SOURCE_NAME: <<parameters.source-name>>
+        MANIFEST_SOURCE_VERSION: <<parameters.source-version>>
+        MANIFEST_GENERATOR: <<parameters.generator>>
+        MANIFEST_ARGS: <<parameters.args>>
+      name: Generate SBOM
+      command: <<include(scripts/generate.sh)>>
