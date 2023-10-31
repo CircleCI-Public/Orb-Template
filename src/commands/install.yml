@@ -3,15 +3,15 @@ description: >
 parameters:
   generator:
     type: string
-    required: false
+    default: ""
     description: "generator to install"
   generator_version:
     type: string
-    required: false
+    default: ""
     description: "generator to install"
   version:
     type: string
-    required: false
+    default: ""
     description: "cli version to install"
 steps:
   - run:
