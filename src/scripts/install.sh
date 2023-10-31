@@ -6,10 +6,11 @@ generator=$(circleci env subst "${MANIFEST_GENERATOR}")
 generator_version=$(circleci env subst "${MANIFEST_GENERATOR_VERSION}")
 generator_version=${generator_version:-"latest"}
 
-# only accept syft versions equal or lower than 0.92.0
+# only accept syft versions equal or lower than v0.92.0
 if [[ "${generator}" == "syft" ]]; then
-    if [[ "${generator_version}" > "0.92.0" ]]; then
-        echo "Syft version ${generator_version} is not supported. Please use version 0.92.0 or lower."
+    gversion=$(echo "${generator_version}" | sed 's/v//g')
+    if [[ "${gversion}" > "v0.92.0" ]]; then
+        echo "syft versions equal or lower than v0.92.0 are supported"
         exit 1
     fi
 fi
