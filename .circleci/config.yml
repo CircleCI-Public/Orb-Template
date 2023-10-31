@@ -1,7 +1,7 @@
 version: 2.1
 setup: true
 orbs:
-  orb-tools: circleci/orb-tools@12.0
+  orb-tools: circleci/orb-tools@12.0.4
   shellcheck: circleci/shellcheck@3.2.0
 
 filters: &filters
@@ -22,8 +22,8 @@ workflows:
       # Triggers the next workflow in the Orb Development Kit.
       - orb-tools/continue:
           pipeline_number: << pipeline.number >>
-          vcs_type: github
-          orb_name: manifest-cyber/sbom
+          vcs_type: << pipeline.project.type >>
+          orb_name: sbom
           requires:
             [orb-tools/lint, orb-tools/pack, orb-tools/review, shellcheck/check]
           filters: *filters

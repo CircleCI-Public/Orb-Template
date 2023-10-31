@@ -1,7 +1,5 @@
 version: 2.1
-
 orbs:
-  sbom: manifest-cyber/sbom@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@12.0
 
 filters: &filters
@@ -15,26 +13,32 @@ release-filters: &release-filters
     only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
 
 jobs:
+  # Create jobs to test the commands of your orbs.
+  # You may want to add additional validation steps to ensure the commands are working as expected.
   command-test:
     docker:
       - image: cimg/base:current
     steps:
       - checkout
-      - sbom/install:
-          version: <<pipeline.git.revision>>
+      # Run your orb's commands to validate them.
+      # - sbom/install
 workflows:
   test-deploy:
     jobs:
+      # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
+      # Test your orb's commands in a custom job and test your orb's jobs directly as a part of this workflow.
       - command-test:
           filters: *filters
+      # The orb must be re-packed for publishing, and saved to the workspace.
       - orb-tools/pack:
           filters: *release-filters
       - orb-tools/publish:
           orb_name: manifest-cyber/sbom
-          vcs_type: <<pipeline.project.type>>
+          vcs_type: << pipeline.project.type >>
           pub_type: production
+          # Ensure this job requires all test jobs and the pack job.
           requires:
             - orb-tools/pack
             - command-test
-          context: orb-publishing # <publishing-context> # orb-publishing
+          context: <publishing-context>
           filters: *release-filters
