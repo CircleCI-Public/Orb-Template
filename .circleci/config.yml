@@ -23,7 +23,7 @@ workflows:
       - orb-tools/continue:
           pipeline_number: << pipeline.number >>
           vcs_type: gh # << pipeline.project.type >>
-          orb_name: sbom
+          orb_name: manifest-cyber/sbom
           requires:
             [orb-tools/lint, orb-tools/pack, orb-tools/review, shellcheck/check]
           filters: *filters
