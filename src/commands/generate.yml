@@ -42,6 +42,6 @@ steps:
         MANIFEST_SOURCE_VERSION: <<parameters.source_version>>
         MANIFEST_GENERATOR: <<parameters.generator>>
         MANIFEST_ARGS: <<parameters.args>>
-        MANFIEST_PUBLISH: <<parameters.publish>>
+        MANIFEST_PUBLISH: <<parameters.publish>>
       name: Generate SBOM
       command: <<include(scripts/generate.sh)>>

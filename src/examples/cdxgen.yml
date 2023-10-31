@@ -3,7 +3,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    sbom: manifest-cyber/sbom@0.1.0
+    sbom: manifest/sbom@0.1.0
 
   jobs:
     build:

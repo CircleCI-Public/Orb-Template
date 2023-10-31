@@ -25,6 +25,7 @@ jobs:
       - sbom/generate:
           generator: syft
           source: .
+          publish: true
 
 workflows:
   test-deploy:
@@ -34,7 +35,7 @@ workflows:
       - orb-tools/pack:
           filters: *release-filters
       - orb-tools/publish:
-          orb_name: manifest-cyber/sbom
+          orb_name: manifest/sbom
           vcs_type: gh # << pipeline.project.type >>
           pub_type: production
           requires:
