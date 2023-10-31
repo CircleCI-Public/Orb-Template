@@ -15,4 +15,4 @@ if [[ ! -z ${targs} ]]; then
     args="-- ${args}"
 fi
 
-manifest sbom --label="${labels}" --generator="${generator}" --name="${name}" --version="${version}" --output="${format}" "${sources}" ${args}
+manifest sbom --label="${labels}" --generator="${generator}" --name="${name}" --version="${version}" --output="${format}" "${sources}" "${args}"
